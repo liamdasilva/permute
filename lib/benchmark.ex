@@ -14,9 +14,9 @@ defmodule Benchmark do
       IO.puts("ALEX: Time for #{word}:\t\t\t#{time}")
     end)
 
-    # Enum.each(tests, fn word ->
-    #   {time, _} = :timer.tc(fn -> Permute.Flow.permute(word) end)
-    #   IO.puts("LIAM FLOW: Time for #{word}:\t\t\t#{time}")
-    # end)
+    Enum.each(tests, fn word ->
+      {time, _} = :timer.tc(fn -> Permute.Flow.permute(word) end)
+      IO.puts("FLOW: Time for #{word}:\t\t\t#{time}")
+    end)
   end
 end

@@ -16,7 +16,7 @@ defmodule Permute.Flow do
     |> Flow.from_enumerable()
     |> Flow.map(fn l ->
       List.delete(list, l)
-      |> permute_aux()
+      |> Permute.permute_aux()
       |> Enum.map(&(l <> &1))
     end)
     |> Flow.reduce(fn -> [] end, fn list, results -> list ++ results end)

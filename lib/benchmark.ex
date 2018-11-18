@@ -1,22 +1,30 @@
 defmodule Benchmark do
-  def run(tests) when is_binary(tests) do
-    run([tests])
+  @test_string "abcdefg"
+
+  def run(word \\ @test_string) do
+    {time, _} = :timer.tc(fn -> Permute.permute(word) end)
+    IO.puts("LIAM: Time for #{word}:\t\t\t#{time}")
+
+    {time, _} = :timer.tc(fn -> Permute2.permute(word) end)
+    IO.puts("ALEX: Time for #{word}:\t\t\t#{time}")
+
+    {time, _} = :timer.tc(fn -> Permute.Flow.permute(word) end)
+    IO.puts("FLOW: Time for #{word}:\t\t\t#{time}")
   end
 
-  def run(tests \\ ["a", "ab", "abc", "abcd", "abcde", "abcdef"]) do
-    Enum.each(tests, fn word ->
-      {time, _} = :timer.tc(fn -> Permute.permute(word) end)
-      IO.puts("LIAM: Time for #{word}:\t\t\t#{time}")
-    end)
-
-    Enum.each(tests, fn word ->
-      {time, _} = :timer.tc(fn -> Permute2.permute(word) end)
-      IO.puts("ALEX: Time for #{word}:\t\t\t#{time}")
-    end)
-
-    Enum.each(tests, fn word ->
-      {time, _} = :timer.tc(fn -> Permute.Flow.permute(word) end)
-      IO.puts("FLOW: Time for #{word}:\t\t\t#{time}")
-    end)
+  def benchee(word \\ @test_string) do
+    Benchee.run(
+      %{
+        "LIAM" => fn -> Permute.permute(word) end,
+        "ALEX" => fn -> Permute2.permute(word) end,
+        "FLOW" => fn -> Permute.Flow.permute(word) end
+      },
+      time: 10,
+      memory_time: 2,
+      formatters: [
+        Benchee.Formatters.HTML,
+        Benchee.Formatters.Console
+      ]
+    )
   end
 end

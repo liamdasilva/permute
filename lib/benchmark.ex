@@ -1,15 +1,15 @@
 defmodule Benchmark do
-  @test_string "abcdefg"
+  @test_string "abcdefgh"
 
   def run(word \\ @test_string) do
     {time, _} = :timer.tc(fn -> Permute.permute(word) end)
-    IO.puts("LIAM: Time for #{word}:\t\t\t#{time}")
+    IO.puts("LIAM: Time for #{word}:\t\t\t#{time / 1000}ms")
 
     {time, _} = :timer.tc(fn -> Permute2.permute(word) end)
-    IO.puts("ALEX: Time for #{word}:\t\t\t#{time}")
+    IO.puts("ALEX: Time for #{word}:\t\t\t#{time / 1000}ms")
 
     {time, _} = :timer.tc(fn -> Permute.Flow.permute(word) end)
-    IO.puts("FLOW: Time for #{word}:\t\t\t#{time}")
+    IO.puts("FLOW: Time for #{word}:\t\t\t#{time / 1000}ms")
   end
 
   def benchee(word \\ @test_string) do
@@ -19,7 +19,7 @@ defmodule Benchmark do
         "ALEX" => fn -> Permute2.permute(word) end,
         "FLOW" => fn -> Permute.Flow.permute(word) end
       },
-      time: 10,
+      time: 30,
       memory_time: 2,
       formatters: [
         Benchee.Formatters.HTML,

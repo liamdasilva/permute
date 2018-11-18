@@ -1,4 +1,4 @@
-defmodule Permute do
+defmodule Permute.Flow do
   def permute(word) do
     permute_aux(String.graphemes(word))
   end
@@ -12,11 +12,14 @@ defmodule Permute do
   end
 
   def permute_aux(list) do
-    Enum.map(list, fn l ->
+    list
+    |> Flow.from_enumerable()
+    |> Flow.map(fn l ->
       List.delete(list, l)
       |> permute_aux()
       |> Enum.map(&(l <> &1))
     end)
-    |> Enum.concat()
+    |> Flow.reduce(fn -> [] end, fn list, results -> list ++ results end)
+    |> Enum.to_list()
   end
 end

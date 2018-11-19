@@ -1,5 +1,5 @@
 defmodule Benchmark do
-  @test_string "abcdefgh"
+  @test_string "abcdefg"
 
   def run(word \\ @test_string) do
     {time, _} = :timer.tc(fn -> Permute.permute(word) end)
@@ -19,7 +19,7 @@ defmodule Benchmark do
         "ALEX" => fn -> Permute2.permute(word) end,
         "FLOW" => fn -> Permute.Flow.permute(word) end
       },
-      time: 30,
+      time: 10,
       memory_time: 2,
       formatters: [
         Benchee.Formatters.HTML,

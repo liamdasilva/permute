@@ -1,4 +1,14 @@
 defmodule Permute2 do
+  @doc """
+  Given a word with unique letters, returns an unsorted list of all possible letter permutations
+  of that word
+
+  ## Examples
+
+      iex> Permute.permute("abc") |> Enum.sort()
+      ["abc", "acb", "bac", "bca", "cab", "cba"]
+
+  """
   def permute(word) do
     permute_aux(String.graphemes(word), [])
   end

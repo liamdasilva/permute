@@ -1,4 +1,13 @@
 defmodule Permute.Flow do
+  @doc """
+  Given a word with unique letters, returns an unsorted list of all possible letter permutations
+  of that word
+  ## Examples
+
+      iex> Permute.permute("abc") |> Enum.sort()
+      ["abc", "acb", "bac", "bca", "cab", "cba"]
+
+  """
   def permute(word) do
     permute_aux(String.graphemes(word))
   end
@@ -13,7 +22,7 @@ defmodule Permute.Flow do
 
   def permute_aux(list) do
     list
-    |> Flow.from_enumerable()
+    |> Flow.from_enumerable(stages: 8)
     |> Flow.map(fn l ->
       List.delete(list, l)
       |> Permute.permute_aux()

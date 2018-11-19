@@ -1,8 +1,6 @@
 defmodule PermuteTest do
   use ExUnit.Case
   doctest Permute
-
-  test "greets the world" do
-    assert Permute.hello() == :world
-  end
+  doctest Permute2
+  doctest Permute.Flow
 end

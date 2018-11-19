@@ -22,7 +22,7 @@ defmodule Permute.MixProject do
   defp deps do
     [
       {:flow, "~> 0.14"},
-      {:benchee, "~> 0.11", only: :dev},
+      {:benchee, "~> 0.11", only: [:dev, :test]},
       {:benchee_html, "~> 0.4", only: :dev}
     ]
   end
